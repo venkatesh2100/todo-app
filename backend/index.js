@@ -11,10 +11,11 @@ app.post('/todo',(req,res)=>{
   const parsedPayload=createTodo.safeParse(createPayload);
   if(!parsedPayload.sucess){
     res.status(411).json({
-      msg:"you entered wrong input please check back ";
+      msg:"you entered wrong input please check back "
     })
     return;
   }
+  //set in mongodb(correct or sucess)
 })
 
 app.get('/todos',(req,res)=>{
