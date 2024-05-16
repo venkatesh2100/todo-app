@@ -3,3 +3,8 @@
 - Create a Todo and update the progress
 - Can alter the status of Completion
 - Can delete the completed tasks
+
+>express
+>Zod validation 
+>Mongoose
+
