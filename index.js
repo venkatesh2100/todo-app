@@ -1,7 +1,7 @@
 import express from 'express'
 const {createTodo} =require("./types")
 const app=express()
-
+app.use(express.json());
 app.get('/',(req,res)=>{
   app.send("hello world")
 })
