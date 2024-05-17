@@ -9,6 +9,7 @@ app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("hello world"); 
+});
 
 app.post("/todo", async (req, res) => {
   const createPayload = req.body;
@@ -41,31 +42,49 @@ app.post("/todo", async (req, res) => {
 
 app.get("/todos", async (req, res) => {
   const todoList = await todos.find({}); 
+
   res.json({
     todos: todoList, 
   });
 });
-
 app.put("/status", async (req, res) => {
   const updatePayload = req.body;
-  const parsedPayload = updateTodo.safeParse(updatePayload);
-  if (!parsedPayload.success) {
-    res.status(411).json({
-      msg: "you entered wrong inputs please check and come back soon",
-    });
-    return;
-  }
-  await todos.update(
-    {
-      _id: req.body._id,
-    },
-    {
-      status: true,
+
+  try {
+    // Update the status of the todo in MongoDB
+    const updatedTodo = await todos.findOneAndUpdate(
+      { _id: updatePayload._id },
+      { $set: { status: true } },
+      { new: true } // Return the updated todo
+    );
+    
+    if (!updatedTodo) {
+      // If todo is not found, return a 404 error
+      return res.status(404).json({ msg: "Todo not found" });
     }
-  );
-  res.json({
-    msg: "Todo is completed",
-  });
+
+    res.json({
+      msg: "Todo is completed",
+      todo: updatedTodo // Send back the updated todo
+    });
+  } catch (error) {
+    console.error("Error updating todo status:", error);
+    res.status(500).json({ msg: "Internal server error" });
+  }
+});
+
+app.delete("/todo/:id", async (req, res) => {
+  const todoId = req.params.id;
+  try {
+    const deletedTodo = await todos.findByIdAndDelete(todoId);
+    if (!deletedTodo) {
+      return res.status(404).json({ msg: "Todo not found" });
+    }
+    res.json({ msg: "Todo deleted", deletedTodo });
+  } catch (error) {
+    console.error("Error deleting todo:", error);
+    res.status(500).json({ msg: "Internal server error" });
+  }
 });
 
 app.listen(3000, () => {
