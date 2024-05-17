@@ -1,11 +1,14 @@
 const express = require('express'); 
 const { createTodo, updateTodo } = require("./types");
 const { todos } = require("./db");
+const cors = require('cors');
 const app = express();
+
 app.use(express.json());
+app.use(cors());
+
 app.get("/", (req, res) => {
-  res.send("hello world"); // Changed app.send to res.send
-});
+  res.send("hello world"); 
 
 app.post("/todo", async (req, res) => {
   const createPayload = req.body;
@@ -37,10 +40,9 @@ app.post("/todo", async (req, res) => {
 });
 
 app.get("/todos", async (req, res) => {
-  const todo = await todos.find({});
-
+  const todoList = await todos.find({}); 
   res.json({
-    todo,
+    todos: todoList, 
   });
 });
 
