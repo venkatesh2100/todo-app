@@ -14,10 +14,6 @@ export default function CreateTodo({ onTodoAdded }) {
         body: JSON.stringify({ title, description }),
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to create todo");
-      }
-
       const data = await response.json();
       onTodoAdded(data.todo); // Call the callback function with the new todo
       setTitle("");

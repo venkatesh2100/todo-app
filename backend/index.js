@@ -5,6 +5,7 @@ const cors = require('cors');
 const app = express();
 
 app.use(express.json());
+//Cors is used for Allow Request by forntend :>
 app.use(cors());
 
 app.get("/", (req, res) => {
@@ -22,8 +23,7 @@ app.post("/todo", async (req, res) => {
     return;
   }
 
-  try {
-    // Create new todo in MongoDB
+
     const newTodo = await todos.create({
       title: createPayload.title,
       description: createPayload.description,
@@ -34,10 +34,6 @@ app.post("/todo", async (req, res) => {
       msg: "Todo is created",
       todo: newTodo,
     });
-  } catch (error) {
-    console.error("Error creating todo:", error);
-    res.status(500).json({ msg: "Internal server error" });
-  }
 });
 
 app.get("/todos", async (req, res) => {
@@ -55,17 +51,16 @@ app.put("/status", async (req, res) => {
     const updatedTodo = await todos.findOneAndUpdate(
       { _id: updatePayload._id },
       { $set: { status: true } },
-      { new: true } // Return the updated todo
+      { new: true } 
     );
     
     if (!updatedTodo) {
-      // If todo is not found, return a 404 error
       return res.status(404).json({ msg: "Todo not found" });
     }
 
     res.json({
       msg: "Todo is completed",
-      todo: updatedTodo // Send back the updated todo
+      todo: updatedTodo 
     });
   } catch (error) {
     console.error("Error updating todo status:", error);

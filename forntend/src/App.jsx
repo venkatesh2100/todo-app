@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import CreateTodo from '../components/CreateTodo';  
-import Todo from '../components/Todo';  
-import CurrentDateTime from '../components/TimeandDate';
+import CreateTodo from './components/CreateTodo';  
+import Todo from './components/Todo';  
+import CurrentDateTime from './components/TimeandDate';
 
 function App() {
   const [todos, setTodos] = useState([]);
