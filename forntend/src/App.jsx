@@ -6,10 +6,10 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <App>
-      <h1>Solo Daily Tasks</h1>
+    <div>
+      <h1>CS50 Final Project </h1>
       <CreateTodo/>
-    </App>
+    </div>
   )
 }
 

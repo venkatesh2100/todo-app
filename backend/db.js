@@ -1,10 +1,7 @@
-// import mongoose from 'mongoose';
-const mongoose =require('mongoose')
-// import { boolean } from 'zod';
 
-//mongodb+srv://thisisvenkyynm:VhrWSFGmaaHtFnMJ@cluster011.woob7zs.mongodb.net/
+const mongoose = require('mongoose')
 
-mongoose.connect("mongodb+srv://thisisvenkyynm:VhrWSFGmaaHtFnMJ@cluster011.woob7zs.mongodb.net/")
+mongoose.connect("mongodb+srv://thisisvenkyynm:6jYlxHafJkMghE16@cluster011.woob7zs.mongodb.net/")
 
 const todoSchema=mongoose.Schema({
   title:String,
@@ -17,3 +14,4 @@ const todos=mongoose.model('todos',todoSchema);
 module.exports={
   todos
 }
+

@@ -1,4 +1,4 @@
-const express = require('express'); // Corrected import statement
+const express = require('express'); 
 const { createTodo, updateTodo } = require("./types");
 const { todos } = require("./db");
 const app = express();
@@ -10,7 +10,7 @@ app.get("/", (req, res) => {
 app.post("/todo", async (req, res) => {
   const createPayload = req.body;
   const parsedPayload = createTodo.safeParse(createPayload);
-  if (!parsedPayload.success) { // Corrected typo: parsedPayload.sucess to parsedPayload.success
+  if (!parsedPayload.success) { 
     res.status(400).json({
       msg: "You entered wrong input. Please check back.",
       errors: parsedPayload.error,
